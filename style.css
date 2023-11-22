@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 900;
+    font-size: 30px;
+    color: white;
+}
+
+#cenario {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    background-image: url(imagens/espaco.gif);
+    background-position: center;
+    background-repeat: repeat;
+    background-size: cover;
+}
+
+#menu {
+    width: 80vw;   /* largura do menu */
+    display: flex;   /* é p/ ficar em linha(alinhado) */
+    justify-content: space-between;   /* é p/ ficar um em cada ponta alinhado */
+    margin-top: 40px;
+}
+
+#iniciar {
+    position: absolute;
+    color: black;
+    top: 50%;  /* posicionar no meio */
+    left: 50%;  /* posicionar no meio */
+    transform: translate(-50%, -50%);  /* posicionar no meio */
+}

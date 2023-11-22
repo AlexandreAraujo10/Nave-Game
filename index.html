@@ -3,11 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="favicon.ico" type="imagens/favicon.ico">
     <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="imagens/favicon.ico" type="image/x-icon">
     <title>Jogo Nave Espacial</title>
 </head>
 <body>
-    
+    <div id="cenario">
+        <div id="menu">
+            <div id="vida">Vida: 100</div>
+            <div id="pontos">Pontos: 0</div>
+        </div>
+        <div id="nave"></div>
+        <button type="button" id="iniciar" onclick="iniciarjogo()">Iniciar Jogo</button>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
