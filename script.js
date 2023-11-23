@@ -10,8 +10,10 @@ const alturaNave = nave.offsetHeight;
 
 const velocidadeNave = 15;
 
-let posicaoHorizontal = 0;
-let posicaoVertical = 0;
+let estaAtirando = false;
+
+let posicaoHorizontal = larguraCenario / 2 - 50;
+let posicaoVertical = alturaCenario - alturaNave;
 let direcaoHorizontal =0;
 let direcaoVertical = 0;
 
@@ -31,9 +33,10 @@ const teclaPressionada = (tecla) => {  /* esse comando, é p quando apertar a te
 const teclaSolta = (tecla) => {   /* esse comando, é p quando soltar a tecla */
     if (tecla.key === "ArrowRight" || tecla.key === "ArrowLeft") { /* se a tecla for igual (ArrowRight) ceta p/ direita */
         direcaoHorizontal = 0;
-    } 
-    } else if (tecla.key ==="ArrowDown" || tecla.key === "ArrowUp") {   /* se a tecla for igual (ArrowDown) ceta p/ baixo */
+    }  else if (tecla.key ==="ArrowDown" || tecla.key  === "ArrowUp") {   /* se a tecla for         
+        igual (ArrowDown) ceta p/ baixo */
         direcaoVertical = 0;
+} 
 } 
 
 const moveNave = () => {   /* esse comando é p/ mover a nave */
@@ -51,6 +54,37 @@ const moveNave = () => {   /* esse comando é p/ mover a nave */
     }
     nave.style.left = posicaoHorizontal + "px";
     nave.style.top = posicaoVertical + "px";
+}
+
+const atirar = () => {
+    if (estaAtirando) {
+        criaTiros(posicaoHorizontal, posicaoVertical);
+    }
+}
+
+document.eddEventListener("keydown", (tecla)) {
+    if (tecla.key === "") {
+        atirar();
+        estaAtirando = true;
+    }
+}
+
+document.addEventListener("keyup", (tecla) => {
+    if (tecla.key === "") {
+        estaAtirando = false;
+    }
+})
+
+const criaTiros = (posicaoLeftTiro, posicaoTopTiro) => {   /* é uma função que cria os tiros */
+    const tiro = document.createElement("div");
+    tiro.className = "tiro";
+    tiro.style.position = "absolute";
+    tiro.style.width = "10px";
+    tiro.style.height = "10px";
+    tiro.style.backgroundColor = "red";
+    tiro.style.left = posicaoLeftTiro + "px";
+    tiro.style.top = posicaoTopTiro + "px";
+    cenario.appendChild(tiro);
 }
  
 const iniciarJogo = () => {   /* evento p/ começar o jogo */

@@ -41,7 +41,8 @@
     display: block; 
     border-radius: 5px; 
     padding: 10px 20px;
-    cursor: pointer;   /* quando passar o mouse em cima vira uma mãozinha */
+    cursor: pointer;   /* quando passar o mouse em cima vira uma mãozinha
+     */
 }
 
 #nave {
