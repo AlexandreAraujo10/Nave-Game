@@ -21,8 +21,8 @@
     justify-content: center;
     background-image: url(imagens/espaco.gif);
     background-position: center;
-    background-repeat: repeat;
-    background-size: cover;
+    background-repeat: repeat;   /* é p/ colocar uma animação p/ imagem de fundo se deslocar (se mover) */
+    background-size: cover;   /* o tamanho da imagem de fundo é (cover) */
 }
 
 #menu {
@@ -38,4 +38,20 @@
     top: 50%;  /* posicionar no meio */
     left: 50%;  /* posicionar no meio */
     transform: translate(-50%, -50%);  /* posicionar no meio */
+    display: block; 
+    border-radius: 5px; 
+    padding: 10px 20px;
+    cursor: pointer;   /* quando passar o mouse em cima vira uma mãozinha */
+}
+
+#nave {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-image: url(imagens/jogador.gif);
+    background-position: center;
+    background-repeat: no-repeat;   /* p/ não repetir a imgagem */
+    background-size: contain;   /* deixa a imagem nítida (aparecerá) */
+    bottom: 0;
+
 }
