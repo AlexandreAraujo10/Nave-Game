@@ -10,6 +10,7 @@ const alturaNave = nave.offsetHeight;
 
 const velocidadeNave = 15;
 
+let estaAtirando = false;
 
 let posicaoHorizontal = larguraCenario / 2 - 50;
 let posicaoVertical = alturaCenario - alturaNave;
@@ -55,7 +56,35 @@ const moveNave = () => {   /* esse comando é p/ mover a nave */
     nave.style.top = posicaoVertical + "px";
 }
 
+const atirar = () => {
+    if (estaAtirando) {
+        criaTiros(posicaoHorizontal, posicaoVertical);
+    }
+}
 
+document.addEventListener("keydown", (tecla) {
+    if (tecla.key === " ") {
+        estaAtirando = true;
+    }
+});
+
+document.addEventListener("keyup", (tecla)=> {
+    if (tecla.key === " ") {
+        estaAtirando = false;
+    }
+} )
+
+const criaTiros = (posicaoLeftTiro, posicaoTopTiro) => {
+    const tiro = document.createElement("div");
+    tiro.className = "Tiro";
+    tiro.style.position = "absolute";
+    tiro.style.width = "10px";
+    tiro.style.height = "10";
+    tiro.style.backgroundColor = "red";
+    tiro.style.left = posicaoLeftTiro + "px";
+    tiro.style.top = posicaoTopTiro + "px";
+    cenario.appendChild(tiro);  /* p/ adicionar tiro no cenário */
+}
  
 const iniciarJogo = () => {   /* evento p/ começar o jogo */
     document.addEventListener("keydown", teclaPressionada);   /* (keydown)p/ tecla apertada */
