@@ -62,17 +62,17 @@ const atirar = () => {
     }
 }
 
-document.addEventListener("keydown", (tecla) {
+document.addEventListener("keydown", (tecla) => {
     if (tecla.key === " ") {
         estaAtirando = true;
     }
 });
 
-document.addEventListener("keyup", (tecla)=> {
+document.addEventListener("keyup", (tecla) => {
     if (tecla.key === " ") {
         estaAtirando = false;
     }
-} )
+})
 
 const criaTiros = (posicaoLeftTiro, posicaoTopTiro) => {
     const tiro = document.createElement("div");
