@@ -10,11 +10,10 @@ const alturaNave = nave.offsetHeight;
 
 const velocidadeNave = 15;
 
-let estaAtirando = false;
 
 let posicaoHorizontal = larguraCenario / 2 - 50;
 let posicaoVertical = alturaCenario - alturaNave;
-let direcaoHorizontal =0;
+let direcaoHorizontal = 0;
 let direcaoVertical = 0;
 
 const teclaPressionada = (tecla) => {  /* esse comando, é p quando apertar a tecla */
@@ -49,43 +48,14 @@ const moveNave = () => {   /* esse comando é p/ mover a nave */
     }
     if (posicaoVertical < 0) {   /* movimento vertical */
         posicaoVertical = 0;
-    } else if (posicaoVertical + alturaNave > larguraCenario) {  /* se a pos.vert. + a alt.Nave for maior que alt.Cenar. */
-        posicaoVertical = alturaCenario - larguraNave;  /* então a pos.vert.é igual a alt.Cenar. menos alt.Nave (nave não sai do cenário)  */
+    } else if (posicaoVertical + larguraNave > larguraCenario) {  /* se a pos.vert. + a alt.Nave for maior que alt.Cenar. */
+        posicaoVertical = alturaCenario - larguraCeNave;  /* então a pos.vert.é igual a alt.Cenar. menos alt.Nave (nave não sai do cenário)  */
     }
     nave.style.left = posicaoHorizontal + "px";
     nave.style.top = posicaoVertical + "px";
 }
 
-const atirar = () => {
-    if (estaAtirando) {
-        criaTiros(posicaoHorizontal, posicaoVertical);
-    }
-}
 
-document.eddEventListener("keydown", (tecla)) {
-    if (tecla.key === "") {
-        atirar();
-        estaAtirando = true;
-    }
-}
-
-document.addEventListener("keyup", (tecla) => {
-    if (tecla.key === "") {
-        estaAtirando = false;
-    }
-})
-
-const criaTiros = (posicaoLeftTiro, posicaoTopTiro) => {   /* é uma função que cria os tiros */
-    const tiro = document.createElement("div");
-    tiro.className = "tiro";
-    tiro.style.position = "absolute";
-    tiro.style.width = "10px";
-    tiro.style.height = "10px";
-    tiro.style.backgroundColor = "red";
-    tiro.style.left = posicaoLeftTiro + "px";
-    tiro.style.top = posicaoTopTiro + "px";
-    cenario.appendChild(tiro);
-}
  
 const iniciarJogo = () => {   /* evento p/ começar o jogo */
     document.addEventListener("keydown", teclaPressionada);   /* (keydown)p/ tecla apertada */
