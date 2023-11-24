@@ -64,6 +64,7 @@ const atirar = () => {
 
 document.addEventListener("keydown", (tecla) => {
     if (tecla.key === " ") {
+        atirar();
         estaAtirando = true;
     }
 });
