@@ -10,7 +10,15 @@ const alturaNave = nave.offsetHeight;
 
 const velocidadeNave = 15;
 
+const velocidadeTiro = 20;
+
 let estaAtirando = false;
+
+let checaMoveNave;
+let checaMoveTiros;
+let checaTiros;
+
+
 
 let posicaoHorizontal = larguraCenario / 2 - 50;
 let posicaoVertical = alturaCenario - alturaNave;
@@ -58,7 +66,7 @@ const moveNave = () => {   /* esse comando é p/ mover a nave */
 
 const atirar = () => {
     if (estaAtirando) {
-        criaTiros(posicaoHorizontal, posicaoVertical);
+        criaTiros(posicaoHorizontal + 45, posicaoVertical - 10);   /* +45 é p/ regular a posiç. tiro, e - 10 é também regular o espassamento tiro */
     }
 }
 
@@ -84,12 +92,24 @@ const criaTiros = (posicaoLeftTiro, posicaoTopTiro) => {
     tiro.style.left = posicaoLeftTiro + "px";
     tiro.style.top = posicaoTopTiro + "px";
     cenario.appendChild(tiro);  /* p/ adicionar tiro no cenário */
+} 
+
+const moveTiros = () => {
+    const tiros = document.querySelectorAll(".tiro");
+    for (let i = 0; i < tiros.length; i++) {
+        if (tiros[i]) {
+            let posicaoTopTiro = tiros[i].offsetTop;
+            posicaoTopTiro -= velocidadeTiro;
+            tiros[i].style.top = posicaoTopTiro + "px";
+        }
+    }
 }
  
 const iniciarJogo = () => {   /* evento p/ começar o jogo */
     document.addEventListener("keydown", teclaPressionada);   /* (keydown)p/ tecla apertada */
     document.addEventListener("keyup", teclaSolta);   /* (keyup)p/ tecla solta */
     checaMoveNave = setInterval(moveNave, 50);
+    checaMoveTiros = setInterval(moveTiros, 50);
     checaTiros = setInterval(atirar, 10);
     botaoIniciar.style.display = "none";
 }
