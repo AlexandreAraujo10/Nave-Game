@@ -64,7 +64,6 @@ const atirar = () => {
 
 document.addEventListener("keydown", (tecla) => {
     if (tecla.key === " ") {
-        atirar();
         estaAtirando = true;
     }
 });
@@ -80,7 +79,7 @@ const criaTiros = (posicaoLeftTiro, posicaoTopTiro) => {
     tiro.className = "Tiro";
     tiro.style.position = "absolute";
     tiro.style.width = "10px";
-    tiro.style.height = "10";
+    tiro.style.height = "10px";
     tiro.style.backgroundColor = "red";
     tiro.style.left = posicaoLeftTiro + "px";
     tiro.style.top = posicaoTopTiro + "px";
@@ -91,5 +90,6 @@ const iniciarJogo = () => {   /* evento p/ começar o jogo */
     document.addEventListener("keydown", teclaPressionada);   /* (keydown)p/ tecla apertada */
     document.addEventListener("keyup", teclaSolta);   /* (keyup)p/ tecla solta */
     checaMoveNave = setInterval(moveNave, 50);
+    checaTiros = setInterval(atirar, 10);
     botaoIniciar.style.display = "none";
 }
