@@ -57,8 +57,8 @@ const moveNave = () => {   /* esse comando é p/ mover a nave */
     }
     if (posicaoVertical < 0) {   /* movimento vertical */
         posicaoVertical = 0;
-    } else if (posicaoVertical + larguraNave > larguraCenario) {  /* se a pos.vert. + a alt.Nave for maior que alt.Cenar. */
-        posicaoVertical = alturaCenario - larguraCeNave;  /* então a pos.vert.é igual a alt.Cenar. menos alt.Nave (nave não sai do cenário)  */
+    } else if (posicaoVertical + alturaNave > alturaCenario) {  /* se a pos.vert. + a alt.Nave for maior que alt.Cenar. */
+        posicaoVertical = alturaCenario - alturaCeNave;  /* então a pos.vert.é igual a alt.Cenar. menos alt.Nave (nave não sai do cenário)  */
     }
     nave.style.left = posicaoHorizontal + "px";
     nave.style.top = posicaoVertical + "px";
