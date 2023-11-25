@@ -97,10 +97,10 @@ const criaTiros = (posicaoLeftTiro, posicaoTopTiro) => {
 const moveTiros = () => {
     const tiros = document.querySelectorAll(".tiro");
     for (let i = 0; i < tiros.length; i++) {
-        if (tiros[i]) {
-            let posicaoTopTiro = tiros[i].offsetTop;
-            posicaoTopTiro -= velocidadeTiro;
-            tiros[i].style.top = posicaoTopTiro + "px";
+      if (tiros[i]) {
+        let posicaoTopTiro = tiros[i].offsetTop;
+        posicaoTopTiro -= velocidadeTiro;
+        tiros[i].style.top = posicaoTopTiro + "px";
         }
     }
 }
