@@ -99,10 +99,10 @@ const moveTiros = () => {
     for (let i = 0; i < tiros.length; i++) {
       if (tiros[i]) {
         let posicaoTopTiro = tiros[i].offsetTop;
-        posicaoTopTiro -= velocidadeTiro;
+        posicaoTopTiro - velocidadeTiro;
         tiros[i].style.top = posicaoTopTiro + "px";
-        }
-    }
+      }
+   }
 }
  
 const iniciarJogo = () => {   /* evento p/ começar o jogo */
