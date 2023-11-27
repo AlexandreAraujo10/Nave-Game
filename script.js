@@ -89,7 +89,7 @@ const criaTiros = (posicaoLeftTiro, posicaoTopTiro) => {
     tiro.style.left = posicaoLeftTiro + "px";
     tiro.style.top = posicaoTopTiro + "px";
     cenario.appendChild(tiro);  /* p/ adicionar tiro no cenário */
-} 
+}
 
 const moveTiros = () => {
     const tiros = document.querySelectorAll(".tiro");
@@ -104,6 +104,21 @@ const moveTiros = () => {
        }
     }
 }
+
+const naveInimigas = () => {
+    const tiro = document.createElement("div");
+    inimigo.className = "Inimigo";
+    inimigo.style.position = "absolute";
+    inimigo.style.width = "100px";
+    inimigo.style.height = "100px";
+    inimigo.style.backgroundImage = "url(/imagens/inimigo.gif)";
+    inimigo.style.backgroundPosition = "center";
+    inimigo.style.backgroundRepeat = "no-repeat";
+    inimigo.style.backgroundSize = "contain";
+    inimigo.style.left = posicaoLeftTiro + "px";
+    inimigo.style.top = posicaoTopTiro + "px";
+    cenario.appendChild(inimigo);  /* p/ adicionar  nave inimiga no cenário */
+} 
 
 const iniciarJogo = () => {   /* evento p/ começar o jogo */
     document.addEventListener("keydown", teclaPressionada);   /* (keydown)p/ tecla apertada */
