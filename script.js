@@ -92,7 +92,7 @@ const criaTiros = (posicaoLeftTiro, posicaoTopTiro) => {
 } 
 
 const moveTiros = () => {
-    const tiros = document.querySelectorAll("tiro");
+    const tiros = document.querySelectorAll(".tiro");
     for ( let i = 0; i < tiros.length; i++) {
        if (tiros[i]) {
         let posicaoTopTiro = tiros[i].offsetTop;
