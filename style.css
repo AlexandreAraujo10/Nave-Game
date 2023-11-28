@@ -23,6 +23,7 @@
     background-position: center;
     background-repeat: repeat;   /* é p/ colocar uma animação p/ imagem de fundo se deslocar (se mover) */
     background-size: cover;   /* o tamanho da imagem de fundo é (cover) */
+    overflow: hidden;   /* p/ que não tenha barra de rolagem ( não saia nada fora do cenario */
 }
 
 #menu {

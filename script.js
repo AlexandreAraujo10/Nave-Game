@@ -1,6 +1,7 @@
 const botaoIniciar = document.getElementById("iniciar");
 const cenario = document.getElementById("cenario");
 const nave = document.getElementById("nave");
+const vida = document.getElementById("vida");
 
 const larguraCenario = cenario.offsetWidth;
 const alturaCenario = cenario.offsetHeight;
@@ -10,9 +11,13 @@ const alturaNave = nave.offsetHeight;
 
 const velocidadeNave = 15;
 const velocidadeTiro = 20;
+const velocidadeNaveInimigas = 5;
 
 let estaAtirando = false;
 
+let vidaAtual = 100;
+
+let checaMoveNaveInimigas;
 let checaNaveInimigas;
 let checaMoveNave;
 let checaMoveTiros;
@@ -82,7 +87,7 @@ document.addEventListener("keyup", (tecla) => {
 
 const criaTiros = (posicaoLeftTiro, posicaoTopTiro) => {
     const tiro = document.createElement("div");
-    tiro.className = "Tiro";
+    tiro.className = "tiro";
     tiro.style.position = "absolute";
     tiro.style.width = "10px";
     tiro.style.height = "10px";
@@ -121,11 +126,28 @@ const naveInimigas = () => {   /* adicionando nave inimiga */
     cenario.appendChild(inimigo);  /* p/ adicionar  nave inimiga no cenário */
 } 
 
+const moveNaveInimigas = () => {
+    const naveInimigas = document.querySelectorAll(".inimigo");
+    for (let i = 0; i < naveInimigas.length; i++) {
+       if (naveInimigas[i]) {
+        let posicaoTopNaveInimigas = naveInimigas[i].offsetTop;
+        posicaoTopNaveInimigas += velocidadeNaveInimigas;
+        naveInimigas[i].style.top = posicaoTopNaveInimigas + "px";
+        if (posicaoTopNaveInimigas > alturaCenario) {
+            vidaAtual -= 5;  /* a nave inimiga chegou até a base (limite do cenario) sem destruir ela, então desconta 5 de suas vidas */
+            vida.textContent = `Vida: ${vidaAtual}`;   /* p/ contar no mostrador do cenario quantas vidas está perdendo */
+            naveInimigas[i].remove();
+        }
+       }
+    }
+}
+
 const iniciarJogo = () => {   /* evento p/ começar o jogo */
     document.addEventListener("keydown", teclaPressionada);   /* (keydown)p/ tecla apertada */
     document.addEventListener("keyup", teclaSolta);   /* (keyup)p/ tecla solta */
     checaMoveNave = setInterval(moveNave, 50);
     checaMoveTiros = setInterval(moveTiros, 50);
+    checaMoveNaveInimigas = setInterval(moveNaveInimigas, 50);
     checaTiros = setInterval(atirar, 10);
     checaNaveInimigas = setInterval(naveInimigas, 2500);   /* p/ criar uma nave inimiga a cada 2 segundos e meio (2500) */
     botaoIniciar.style.display = "none";
