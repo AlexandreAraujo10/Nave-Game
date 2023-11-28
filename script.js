@@ -134,13 +134,49 @@ const moveNaveInimigas = () => {
         posicaoTopNaveInimigas += velocidadeNaveInimigas;
         naveInimigas[i].style.top = posicaoTopNaveInimigas + "px";
         if (posicaoTopNaveInimigas > alturaCenario) {
-            vidaAtual -= 5;  /* a nave inimiga chegou até a base (limite do cenario) sem destruir ela, então desconta 5 de suas vidas */
+            vidaAtual -= 50;  /* a nave inimiga chegou até a base (limite do cenario) sem destruir ela, então desconta 5 de suas vidas */
             vida.textContent = `Vida: ${vidaAtual}`;   /* p/ contar no mostrador do cenario quantas vidas está perdendo */
+            if (vidaAtual <= 0) {
+                gameOver();
+            }
             naveInimigas[i].remove();
         }
        }
     }
 }
+
+    const gameOver = () => {   /* é p/ limpar (remover)tudo */
+        document.removeEventListener("keydown", teclaPressionada);
+        document.removeEventListener("keyup", teclaSolta);
+        clearInterval(checaMoveNave);  
+        clearInterval(checaMoveNaveInimigas);
+        clearInterval(checaMoveTiros);
+        clearInterval(checaNaveInimigas);
+        const perdeu = document.createElement('div');   
+        perdeu.style.position = "absolute";
+        perdeu.innerHTML = "Game Over";
+        perdeu.style.backgroundColor = "white";
+        perdeu.style.color = "black";
+        perdeu.style.left = "50%";
+        perdeu.style.top = "50%";
+        perdeu.style.padding = "10px 20px";
+        perdeu.style.borderRadius = "5px";
+        perdeu.style.transform = "translate(-50%, -50%)";
+        cenario.appendChild(perdeu);
+        cenario.removeChild(nave);
+        const navesInimigas = document.querySelectorAll(".inimigo");   /* remover as naves inimigas após game over */
+        navesInimigas.forEach((inimigos) => {
+            inimigos.remove();
+        });
+        const todosTiros = document.querySelectorAll(".tiro");   /* p/ remover os tiros após game over */
+        function removeTiros() {
+            for (let i = 0; i < todosTiros.length; i ++) {
+                todosTiros[i].remove();
+
+            }
+        }
+        removeTiros();
+    }
 
 const iniciarJogo = () => {   /* evento p/ começar o jogo */
     document.addEventListener("keydown", teclaPressionada);   /* (keydown)p/ tecla apertada */
