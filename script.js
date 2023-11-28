@@ -108,16 +108,16 @@ const moveTiros = () => {
 
 const naveInimigas = () => {   /* adicionando nave inimiga */
     const inimigo = document.createElement("div");
-    inimigo.className = "Inimigo";
+    inimigo.className = "inimigo";
     inimigo.style.position = "absolute";
     inimigo.style.width = "100px";
     inimigo.style.height = "100px";
-    inimigo.style.backgroundImage = "url(imagens/inimigo.gif)";
+    inimigo.style.backgroundImage = "url(/imagens/inimigo.gif)";
     inimigo.style.backgroundPosition = "center";
     inimigo.style.backgroundRepeat = "no-repeat";
     inimigo.style.backgroundSize = "contain";
     inimigo.style.left = Math.floor(Math.random() * (larguraCenario - larguraNave)) + "px";
-    inimigo.style.top = "-100px";   /* é p/ quando a nave inimiga apareça de fora entrando p/ dentro do cenario */
+    inimigo.style.top = "100px";   /* é p/ quando a nave inimiga apareça de fora entrando p/ dentro do cenario */
     cenario.appendChild(inimigo);  /* p/ adicionar  nave inimiga no cenário */
 } 
 
