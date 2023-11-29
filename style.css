@@ -57,3 +57,12 @@
     bottom: 0;
 
 }
+
+@keyframes animarCenario {   /* de 100% para 0% */
+    from {
+        background-position-y: 100%;
+    } 
+    to {
+        background-position-y: 0%;
+    }
+}

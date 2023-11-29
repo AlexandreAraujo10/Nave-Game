@@ -2,6 +2,7 @@ const botaoIniciar = document.getElementById("iniciar");
 const cenario = document.getElementById("cenario");
 const nave = document.getElementById("nave");
 const vida = document.getElementById("vida");
+const pontos = document.getElementById("pontos");
 
 const larguraCenario = cenario.offsetWidth;
 const alturaCenario = cenario.offsetHeight;
@@ -15,7 +16,11 @@ const velocidadeNaveInimigas = 5;
 
 let estaAtirando = false;
 
+let tiroAtual = 0;
+
 let vidaAtual = 100;
+
+let pontosAtual = 0;
 
 let checaMoveNaveInimigas;
 let checaNaveInimigas;
@@ -69,7 +74,11 @@ const moveNave = () => {   /* esse comando é p/ mover a nave */
 }
 
 const atirar = () => {
-    if (estaAtirando) {
+    const delayTiro = Date.now();
+    const atrasoTiro = delayTiro - tiroAtual;
+    
+    if (estaAtirando && atrasoTiro >= 100) {
+        tiroAtual = Date.now();
         criaTiros(posicaoHorizontal + 45, posicaoVertical - 10);   /* +45 é p/ regular a posiç. tiro, e - 10 é também regular o espassamento tiro */
     }
 }
@@ -155,19 +164,27 @@ const colisao = () => {
         todosTiros.forEach((tiro) => {
             const colisaoNaveInimiga = naveInimiga.getBoundingClientRect();
             const colisaoTiro = tiro.getBoundingClientRect();
-            let vidaAtualNaveInimiga = parseInt(naveInimiga.getAttribute("data-vida"),  10);   /* essa variável é p/ converter o atributo (data-vida), em 10 */
+            let vidaAtualNaveInimiga = parseInt(naveInimiga.getAttribute("data-vida"));   /* essa variável é p/ converter o atributo (data-vida), em 10 */
             if (   /* esse comando é p/ cercar os lados da nave aos tiros */
                 colisaoNaveInimiga.left < colisaoTiro.right && 
                 colisaoNaveInimiga.right > colisaoTiro.left &&
                 colisaoNaveInimiga.top < colisaoTiro.bottom &&
                 colisaoNaveInimiga.bottom > colisaoTiro.top 
                 ) {
-                    vidaAtualNaveInimiga--;
+                    vidaAtualNaveInimiga --;
                     tiro.remove();
+                    if (vidaAtualNaveInimiga === 0) {
+                        pontosAtual += 10;
+                        pontos.textContent = `Pontos: ${pontosAtual}`;
+                        naveInimiga.remove();
+                    } else {
+                        naveInimiga.setAttribute("data-vida", vidaAtualNaveInimiga);
+                    }
             }
         })
     })
 }
+
 const gameOver = () => {   /* é p/ limpar (remover)tudo */
     document.removeEventListener("keydown", teclaPressionada);
     document.removeEventListener("keyup", teclaSolta);
@@ -212,4 +229,6 @@ const iniciarJogo = () => {   /* evento p/ começar o jogo */
     checaTiros = setInterval(atirar, 10);
     checaNaveInimigas = setInterval(naveInimigas, 2500);   /* p/ criar uma nave inimiga a cada 2 segundos e meio (2500) */
     botaoIniciar.style.display = "none";
+    cenario.style.animation = "animarCenario 10s infinite linear";  /* p/ movimentar o cenario de fundo de vagar 10 segundos */
 }
+
