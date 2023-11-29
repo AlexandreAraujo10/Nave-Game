@@ -164,6 +164,8 @@ const colisao = () => {
         todosTiros.forEach((tiro) => {
             const colisaoNaveInimiga = naveInimiga.getBoundingClientRect();
             const colisaoTiro = tiro.getBoundingClientRect();
+            const posicaoNaveInimigaLeft = naveInimiga.offsetLeft;
+            const posicaoNaveInimigaTop = naveInimiga.offsetTop;
             let vidaAtualNaveInimiga = parseInt(naveInimiga.getAttribute("data-vida"));   /* essa variável é p/ converter o atributo (data-vida), em 10 */
             if (   /* esse comando é p/ cercar os lados da nave aos tiros */
                 colisaoNaveInimiga.left < colisaoTiro.right && 
@@ -177,12 +179,29 @@ const colisao = () => {
                         pontosAtual += 10;
                         pontos.textContent = `Pontos: ${pontosAtual}`;
                         naveInimiga.remove();
+                        explosaoNaveInimigaDestruida(posicaoNaveInimigaLeft, posicaoNaveInimigaTop);
                     } else {
                         naveInimiga.setAttribute("data-vida", vidaAtualNaveInimiga);
                     }
             }
         })
     })
+}
+
+const explosaoNaveInimigaDestruida = (posicaoLeftNaveInimiga, posicaoTopNaveInimiga) => {
+     const explosaoNaveInimiga = document.createElement("div");
+    explosaoNaveInimiga.className = "explosaoNaveInimiga";
+    explosaoNaveInimiga.style.position = "absolute";
+    explosaoNaveInimiga.style.width = "100px";
+    explosaoNaveInimiga.style.height = "100px";
+    explosaoNaveInimiga.style.backgroundImage = "url(/imagens/eliminado.gif)";
+    explosaoNaveInimiga.style.backgroundPosition = "center";
+    explosaoNaveInimiga.style.backgroundRepeat = "no-repeat";
+    explosaoNaveInimiga.style.backgroundSize = "contain";
+    explosaoNaveInimiga.style.left = Math.floor(Math.random() * (larguraCenario - larguraNave)) + "px";
+    explosaoNaveInimiga.style.top = posicaoTopNaveInimiga + "px";
+    cenario.appendChild(explosaoNaveInimiga);  /* p/ adicionar  explosao da nave inimiga no cenário */
+    setTimeout(() => {cenario.removeChild(explosaoNaveInimiga);}, 1000);
 }
 
 const gameOver = () => {   /* é p/ limpar (remover)tudo */
