@@ -22,6 +22,7 @@ let checaNaveInimigas;
 let checaMoveNave;
 let checaMoveTiros;
 let checaTiros;
+let checaColisao;
 
 let posicaoHorizontal = larguraCenario / 2 - 50;
 let posicaoVertical = alturaCenario - alturaNave;
@@ -115,6 +116,7 @@ const naveInimigas = () => {   /* adicionando nave inimiga */
     const inimigo = document.createElement("div");
     inimigo.className = "inimigo";
     inimigo.style.position = "absolute";
+    inimigo.setAttribute("data-vida", 5);   /* é p/ 5 vidas cada navinha destruida */
     inimigo.style.width = "100px";
     inimigo.style.height = "100px";
     inimigo.style.backgroundImage = "url(/imagens/inimigo.gif)";
@@ -145,6 +147,27 @@ const moveNaveInimigas = () => {
     }
 }
 
+
+    const colisao = () => {
+        const todasNavesInimigas = document.querySelectorAll(".inimigo");
+        const todosTiros = document.querySelectorAll(".tiro");
+        todasNavesInimigas.forEach((nave Inimiga) => {
+            todosTiros.forEach((tiro) => {
+                const colisaoNaveInimiga = naveInimiga.getBoundingClientRect();
+                const colisaoTiro = tiro.getBoundingClientRect();
+                let vidaAtualNaveInimiga = parseInt(naveInimiga.getAttribute("data-vida"),  10);   /* essa variável é p/ converter o atributo (data-vida), em 10 */
+                if (   /* esse comando é p/ cercar os lados da nave aos tiros */
+                    colisaoNaveInimiga.left < colisaoTiro.right && 
+                    colisaoNaveInimiga.right > colisaoTiro.left &&
+                    colisaoNaveInimiga.top < colisaoTiro.bottom &&
+                    colisaoNaveInimiga.bottom > colisaoTiro.top 
+                    ) {
+                        vidaAtualNaveInimiga--;
+                        tiro.remove();
+                    }
+            })
+        })
+}
     const gameOver = () => {   /* é p/ limpar (remover)tudo */
         document.removeEventListener("keydown", teclaPressionada);
         document.removeEventListener("keyup", teclaSolta);
@@ -152,6 +175,7 @@ const moveNaveInimigas = () => {
         clearInterval(checaMoveNaveInimigas);
         clearInterval(checaMoveTiros);
         clearInterval(checaNaveInimigas);
+        clearInterval(checaColisao);
         const perdeu = document.createElement('div');   
         perdeu.style.position = "absolute";
         perdeu.innerHTML = "Game Over";
@@ -170,7 +194,7 @@ const moveNaveInimigas = () => {
         });
         const todosTiros = document.querySelectorAll(".tiro");   /* p/ remover os tiros após game over */
         function removeTiros() {
-            for (let i = 0; i < todosTiros.length; i +) {   /* 0 é o valor de i, mas se i for menor que todos os tiros (length=tamanho), então i + 1 (loop) */
+            for (let i = 0; i < todosTiros.length; i ++) {   /* 0 é o valor de i, mas se i for menor que todos os tiros (length=tamanho), então i + 1 (loop) */
                 todosTiros[i].remove();
 
             }
@@ -184,6 +208,7 @@ const iniciarJogo = () => {   /* evento p/ começar o jogo */
     checaMoveNave = setInterval(moveNave, 50);
     checaMoveTiros = setInterval(moveTiros, 50);
     checaMoveNaveInimigas = setInterval(moveNaveInimigas, 50);
+    checaColisao = setInterval(colisao, 10);
     checaTiros = setInterval(atirar, 10);
     checaNaveInimigas = setInterval(naveInimigas, 2500);   /* p/ criar uma nave inimiga a cada 2 segundos e meio (2500) */
     botaoIniciar.style.display = "none";
