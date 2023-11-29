@@ -170,7 +170,7 @@ const moveNaveInimigas = () => {
         });
         const todosTiros = document.querySelectorAll(".tiro");   /* p/ remover os tiros após game over */
         function removeTiros() {
-            for (let i = 0; i < todosTiros.length; i ++) {
+            for (let i = 0; i < todosTiros.length; i +) {   /* 0 é o valor de i, mas se i for menor que todos os tiros (length=tamanho), então i + 1 (loop) */
                 todosTiros[i].remove();
 
             }
