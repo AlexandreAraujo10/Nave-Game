@@ -105,6 +105,18 @@ const criaTiros = (posicaoLeftTiro, posicaoTopTiro) => {
     tiro.style.left = posicaoLeftTiro + "px";
     tiro.style.top = posicaoTopTiro + "px";
     cenario.appendChild(tiro);  /* p/ adicionar tiro no cenário */
+    audioTiros();
+}
+
+const audioTiros = () => {
+    const audioDoTiro = document.createElement("audio");
+    audioDoTiro.className = "audioTiros";
+    audioDoTiro.setAttribute("src", "/audios/tiro.mp3");
+    audioDoTiro.play();
+    cenario.oppendChild(audioDoTiro);
+    audioDoTiro.addEventListener("ended", () => {
+        audioDoTiro.remove();
+    })
 }
 
 const moveTiros = () => {
@@ -203,6 +215,7 @@ const NaveInimigaDestruida = (posicaoLeftNaveInimiga, posicaoTopNaveInimiga) => 
      naveInimigaDestruida.style.left = posicaoLeftNaveInimiga + "px";
      naveInimigaDestruida.style.top = posicaoTopNaveInimiga + "px";
      cenario.appendChild(naveInimigaDestruida);  /* p/ adicionar  explosao da nave inimiga no cenário */
+     audioExplosoes();
      setTimeout(() => {cenario.removeChild(naveInimigaDestruida);}, 1000);
 }
 
@@ -219,7 +232,19 @@ const explosaoNaveInimigaDestruida = (posicaoLeftNaveInimiga) => {
     explosaoNaveInimiga.style.left = posicaoLeftNaveInimiga + "px";
     explosaoNaveInimiga.style.top = (alturaCenario - 100) + "px";
     cenario.appendChild(explosaoNaveInimiga);  /* p/ adicionar  explosao da nave inimiga no cenário */
+    audioExplosoes();
     setTimeout(() => {cenario.removeChild(explosaoNaveInimiga);}, 1000);
+}
+
+const audioExplosoes = () => {
+    const audioExplosaoNaveInimiga = document.createElement("audio");
+    audioExplosaoNaveInimiga.className = "audioExplosoes";
+    audioExplosaoNaveInimiga.setAttribute("src", "/audios/destruido.mp3");
+    audioExplosaoNaveInimiga.play();
+    cenario.oppendChild(audioExplosaoNaveInimiga);
+    audioExplosaoNaveInimiga.addEventListener("ended", () => {
+        audioExplosaoNaveInimiga.remove();
+    })
 }
 
 const gameOver = () => {   /* é p/ limpar (remover)tudo */
