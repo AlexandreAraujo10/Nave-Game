@@ -193,7 +193,8 @@ const colisao = () => {
                         pontosAtual += 10;
                         pontos.textContent = `Pontos: ${pontosAtual}`;
                         naveInimiga.remove();
-                        NaveInimigaDestruida(posicaoNaveInimigaLeft, posicaoNaveInimigaTop);
+                        explosaoNaveInimigaDestruida(posicaoNaveInimigaLeft, posicaoNaveInimigaTop);
+                        explosaoNaveInimigaDestruida()
                     } else {
                         naveInimiga.setAttribute("data-vida", vidaAtualNaveInimiga);
                     }
@@ -202,39 +203,26 @@ const colisao = () => {
     })
 }
 
-const NaveInimigaDestruida = (posicaoLeftNaveInimiga, posicaoTopNaveInimiga) => {
-     const naveInimigaDestruida = document.createElement("div");
-     naveInimigaDestruida.className = "naveInimigaDestruida";
-     naveInimigaDestruida.style.position = "absolute";
-     naveInimigaDestruida.style.width = "100px";
-     naveInimigaDestruida.style.height = "100px";
-     naveInimigaDestruida.style.backgroundImage = "url(/imagens/eliminado.gif)";
-     naveInimigaDestruida.style.backgroundPosition = "center";
-     naveInimigaDestruida.style.backgroundRepeat = "no-repeat";
-     naveInimigaDestruida.style.backgroundSize = "contain";
-     naveInimigaDestruida.style.left = posicaoLeftNaveInimiga + "px";
-     naveInimigaDestruida.style.top = posicaoTopNaveInimiga + "px";
-     cenario.appendChild(naveInimigaDestruida);  /* p/ adicionar  explosao da nave inimiga no cenário */
+const explosaoNaveInimigaDestruida = (posicaoLeftNaveInimiga, posicaoTopNaveInimiga) => {
+     const explosaoNaveInimiga = document.createElement("div");
+     explosaoNaveInimiga.className = "explosaoNaveInimiga";
+     explosaoNaveInimiga.style.position = "absolute";
+     explosaoNaveInimiga.style.width = "100px";
+     explosaoNaveInimiga.style.height = "100px";
+     explosaoNaveInimiga.style.backgroundImage = "url(/imagens/eliminado.gif)";
+     explosaoNaveInimiga.style.backgroundPosition = "center";
+     explosaoNaveInimiga.style.backgroundRepeat = "no-repeat";
+     explosaoNaveInimiga.style.backgroundSize = "contain";
+     explosaoNaveInimiga.style.left = posicaoLeftNaveInimiga + "px";
+     explosaoNaveInimiga.style.top = posicaoTopNaveInimiga + "px";
+     cenario.appendChild(explosaoNaveInimiga);  /* p/ adicionar  explosao da nave inimiga no cenário */
+     
+     setTimeout(() => {cenario.removeChild(explosaoNaveInimiga);}, 1000);
+     
      audioExplosoes();
-     setTimeout(() => {cenario.removeChild(naveInimigaDestruida);}, 1000);
 }
 
-const explosaoNaveInimigaDestruida = (posicaoLeftNaveInimiga) => {
-    const explosaoNaveInimiga = document.createElement("div");
-    explosaoNaveInimiga.className = "explosaoNaveInimiga";
-    explosaoNaveInimiga.style.position = "absolute";
-    explosaoNaveInimiga.style.width = "100px";
-    explosaoNaveInimiga.style.height = "100px";
-    explosaoNaveInimiga.style.backgroundImage = "url(/imagens/explosao.gif)";
-    explosaoNaveInimiga.style.backgroundPosition = "center";
-    explosaoNaveInimiga.style.backgroundRepeat = "no-repeat";
-    explosaoNaveInimiga.style.backgroundSize = "contain";
-    explosaoNaveInimiga.style.left = posicaoLeftNaveInimiga + "px";
-    explosaoNaveInimiga.style.top = (alturaCenario - 100) + "px";
-    cenario.appendChild(explosaoNaveInimiga);  /* p/ adicionar  explosao da nave inimiga no cenário */
-    audioExplosoes();
-    setTimeout(() => {cenario.removeChild(explosaoNaveInimiga);}, 1000);
-}
+
 
 const audioExplosoes = () => {
     const audioExplosaoNaveInimiga = document.createElement("audio");
