@@ -153,14 +153,14 @@ const moveNaveInimigas = () => {
     const naveInimigas = document.querySelectorAll(".inimigo");
     for (let i = 0; i < naveInimigas.length; i++) {
        if (naveInimigas[i]) {
-        let posicaoTopNaveInimigas = naveInimigas[i].offsetTop;
-        let posicaoLeftNaveInimigas = naveInimigas[i].offsetLeft;
-        posicaoTopNaveInimigas += velocidadeNaveInimigas;
-        naveInimigas[i].style.top = posicaoTopNaveInimigas + "px";
-        if (posicaoTopNaveInimigas > alturaCenario) {
+        let posicaoTopNaveInimiga = naveInimigas[i].offsetTop;
+        let posicaoLeftNaveInimiga = naveInimigas[i].offsetLeft;
+        posicaoTopNaveInimiga += velocidadeNaveInimigas;
+        naveInimigas[i].style.top = posicaoTopNaveInimiga + "px";
+        if (posicaoTopNaveInimiga > alturaCenario) {
             vidaAtual -= 5;  /* a nave inimiga chegou até a base (limite do cenario) sem destruir ela, então desconta 5 de suas vidas */
             vida.textContent = `Vida: ${vidaAtual}`;   /* p/ contar no mostrador do cenario quantas vidas está perdendo */
-            explosaoNaveInimigaDestruida(posicaoLeftNaveInimigas, posicaoTopNaveInimigas);
+            explosaoNaveInimigaDestruida(posicaoLeftNaveInimiga, posicaoTopNaveInimiga);
             if (vidaAtual <= 0) {
                 gameOver();
             }
@@ -220,7 +220,7 @@ const naveInimigaDestruida = (posicaoLeftNaveInimiga, posicaoTopNaveInimiga) => 
      setTimeout(() => {cenario.removeChild(naveInimigaDestruida);}, 1000);
 }
 
-const explosaoInimigaDestruida = (posicaoLeftNaveInimiga, posicaoTopNaveInimiga) => {
+const explosaoNaveInimigaDestruida = (posicaoLeftNaveInimiga) => {
     const explosaoNaveInimiga = document.createElement("div");
     explosaoNaveInimiga.className = "explosaoNaveInimiga";
     explosaoNaveInimiga.style.position = "absolute";
@@ -231,17 +231,17 @@ const explosaoInimigaDestruida = (posicaoLeftNaveInimiga, posicaoTopNaveInimiga)
     explosaoNaveInimiga.style.backgroundRepeat = "no-repeat";
     explosaoNaveInimiga.style.backgroundSize = "contain";
     explosaoNaveInimiga.style.left = posicaoLeftNaveInimiga + "px";
-    explosaoNaveInimiga.style.top = posicaoTopNaveInimiga + "px";
+    explosaoNaveInimiga.style.top = (alturaCenario - 100) + "px";
     cenario.appendChild(explosaoNaveInimiga);  /* p/ adicionar  explosao da nave inimiga no cenário */
     
     setTimeout(() => {cenario.removeChild(explosaoNaveInimiga);}, 1000);
 
-    audioExplosoes();
+    
 }
 
 
 
-const audioExplosoes = () => {
+/* const audioExplosoes = () => {
     const audioExplosaoNaveInimiga = document.createElement("audio");
     audioExplosaoNaveInimiga.className = "audioExplosoes";
     audioExplosaoNaveInimiga.setAttribute("src", "/audios/destruido.mp3");
@@ -250,7 +250,7 @@ const audioExplosoes = () => {
     audioExplosaoNaveInimiga.addEventListener("ended", () => {
         audioExplosaoNaveInimiga.remove();
     })
-}
+} */
 
 const gameOver = () => {   /* é p/ limpar (remover)tudo */
     document.removeEventListener("keydown", teclaPressionada);
