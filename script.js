@@ -3,6 +3,7 @@ const cenario = document.getElementById("cenario");
 const nave = document.getElementById("nave");
 const vida = document.getElementById("vida");
 const pontos = document.getElementById("pontos");
+const audioJogo = new Audio ("/audios/missaoespaco.mp3");
 
 const larguraCenario = cenario.offsetWidth;
 const alturaCenario = cenario.offsetHeight;
@@ -12,7 +13,7 @@ const alturaNave = nave.offsetHeight;
 
 const velocidadeNave = 15;
 const velocidadeTiro = 20;
-const velocidadeNaveInimigas = 5;
+const velocidadeNaveInimigas = 6;
 
 let estaAtirando = false;
 
@@ -216,9 +217,7 @@ const naveInimigaDestruida = (posicaoLeftNaveInimiga, posicaoTopNaveInimiga) => 
      naveInimigaDestruida.style.left = posicaoLeftNaveInimiga + "px";
      naveInimigaDestruida.style.top = posicaoTopNaveInimiga + "px";
      cenario.appendChild(naveInimigaDestruida);  /* p/ adicionar  explosao da nave inimiga no cenário */
-     
-     setTimeout(() => {cenario.removeChild(naveInimigaDestruida);}, 1000);
-
+     setTimeout(() => {cenario.removeChild(naveInimigaDestruida);}, 1000); 
      audioExplosoes();
 }
 
@@ -235,15 +234,13 @@ const explosaoNaveInimigaDestruida = (posicaoLeftNaveInimiga) => {
     explosaoNaveInimiga.style.left = posicaoLeftNaveInimiga + "px";
     explosaoNaveInimiga.style.top = (alturaCenario - 100) + "px";
     cenario.appendChild(explosaoNaveInimiga);  /* p/ adicionar  explosao da nave inimiga no cenário */
-    
     setTimeout(() => {cenario.removeChild(explosaoNaveInimiga);}, 1000);
-
-    audioExplosoes();
+    
 }
 
 const audioExplosoes = () => {
     const audioExplosaoNaveInimiga = document.createElement("audio");
-    audioExplosaoNaveInimiga.className = "audioExplosoes";
+    audioExplosaoNaveInimiga.className = "audioexplosoes";
     audioExplosaoNaveInimiga.setAttribute("src", "/audios/destruido.mp3");
     audioExplosaoNaveInimiga.play();
     cenario.oppendChild(audioExplosaoNaveInimiga);
@@ -273,18 +270,15 @@ const gameOver = () => {   /* é p/ limpar (remover)tudo */
     perdeu.style.transform = "translate(-50%, -50%)";
     cenario.appendChild(perdeu);
     cenario.removeChild(nave);
+    cenario.style.animation = "none";
     const navesInimigas = document.querySelectorAll(".inimigo");   /* remover as naves inimigas após game over */
     navesInimigas.forEach((inimigos) => {
         inimigos.remove();
     });
     const todosTiros = document.querySelectorAll(".tiro");   /* p/ remover os tiros após game over */
-    function removeTiros() {
-        for (let i = 0; i < todosTiros.length; i ++) {   /* 0 é o valor de i, mas se i for menor que todos os tiros (length=tamanho), então i + 1 (loop) */
-            todosTiros[i].remove();
-
-        }
-    }
-    removeTiros();
+    todosTiros.forEach((tiro) => {
+        cenario.removeChild(tiro);
+    });
 }
 
 const iniciarJogo = () => {   /* evento p/ começar o jogo */
@@ -295,8 +289,10 @@ const iniciarJogo = () => {   /* evento p/ começar o jogo */
     checaMoveNaveInimigas = setInterval(moveNaveInimigas, 50);
     checaColisao = setInterval(colisao, 10);
     checaTiros = setInterval(atirar, 10);
-    checaNaveInimigas = setInterval(naveInimigas, 2500);   /* p/ criar uma nave inimiga a cada 2 segundos e meio (2500) */
+    checaNaveInimigas = setInterval(naveInimigas, 1500);   /* p/ criar uma nave inimiga a cada 2 segundos e meio (2500) */
     botaoIniciar.style.display = "none";
     cenario.style.animation = "animarCenario 10s infinite linear";  /* p/ movimentar o cenario de fundo de vagar 10 segundos */
+    audioJogo.loop = true;
+    audioJogo.play();
 }
 
