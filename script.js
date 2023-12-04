@@ -112,7 +112,7 @@ const criaTiros = (posicaoLeftTiro, posicaoTopTiro) => {
 
 const audioTiros = () => {
     const audioDoTiro = document.createElement("audio");
-    audioDoTiro.className = "audioTiro";
+    audioDoTiro.className = "audiotiro";
     audioDoTiro.setAttribute("src", "/audios/tiro.mp3");
     audioDoTiro.play();
     cenario.oppendChild(audioDoTiro);
@@ -147,7 +147,7 @@ const naveInimigas = () => {   /* adicionando nave inimiga */
     inimigo.style.backgroundRepeat = "no-repeat";
     inimigo.style.backgroundSize = "contain";
     inimigo.style.left = Math.floor(Math.random() * (larguraCenario - larguraNave)) + "px";
-    inimigo.style.top = "-100px";   /* é p/ quando a nave inimiga apareça de fora entrando p/ dentro do cenario */
+    inimigo.style.top = "100px";   /* é p/ quando a nave inimiga apareça de fora entrando p/ dentro do cenario */
     cenario.appendChild(inimigo);  /* p/ adicionar  nave inimiga no cenário */
 } 
 
@@ -189,7 +189,7 @@ const colisao = () => {
                 colisaoNaveInimiga.top < colisaoTiro.bottom &&
                 colisaoNaveInimiga.bottom > colisaoTiro.top 
                 ) {
-                    vidaAtualNaveInimiga--;
+                    vidaAtualNaveInimiga --;
                     tiro.remove();
                     if (vidaAtualNaveInimiga === 0) {
                         pontosAtual += 10;
@@ -207,7 +207,7 @@ const colisao = () => {
 
 const naveInimigaDestruida = (posicaoLeftNaveInimiga, posicaoTopNaveInimiga) => {
      const naveInimigaDestruida = document.createElement("div");
-     naveInimigaDestruida.className = "naveInimigaDestruida";
+     naveInimigaDestruida.className = "naveinimigadestruida";
      naveInimigaDestruida.style.position = "absolute";
      naveInimigaDestruida.style.width = "100px";
      naveInimigaDestruida.style.height = "100px";
@@ -236,7 +236,7 @@ const explosaoNaveInimigaDestruida = (posicaoLeftNaveInimiga) => {
     explosaoNaveInimiga.style.top = (alturaCenario - 100) + "px";
     cenario.appendChild(explosaoNaveInimiga);  /* p/ adicionar  explosao da nave inimiga no cenário */
     setTimeout(() => {cenario.removeChild(explosaoNaveInimiga);}, 1000);
-    
+    audioExplosoes();
 }
 
 const audioExplosoes = () => {
