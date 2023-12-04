@@ -147,7 +147,7 @@ const naveInimigas = () => {   /* adicionando nave inimiga */
     inimigo.style.backgroundRepeat = "no-repeat";
     inimigo.style.backgroundSize = "contain";
     inimigo.style.left = Math.floor(Math.random() * (larguraCenario - larguraNave)) + "px";
-    inimigo.style.top = "100px";   /* é p/ quando a nave inimiga apareça de fora entrando p/ dentro do cenario */
+    inimigo.style.top = "-100px";   /* é p/ quando a nave inimiga apareça de fora entrando p/ dentro do cenario */
     cenario.appendChild(inimigo);  /* p/ adicionar  nave inimiga no cenário */
 } 
 
