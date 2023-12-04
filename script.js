@@ -236,7 +236,7 @@ const explosaoNaveInimigaDestruida = (posicaoLeftNaveInimiga) => {
     explosaoNaveInimiga.style.top = (alturaCenario - 100) + "px";
     cenario.appendChild(explosaoNaveInimiga);  /* p/ adicionar  explosao da nave inimiga no cenário */
     setTimeout(() => {cenario.removeChild(explosaoNaveInimiga);}, 1000);
-    audioExplosoes();
+    
 }
 
 const audioExplosoes = () => {
