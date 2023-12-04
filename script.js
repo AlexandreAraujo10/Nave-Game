@@ -25,10 +25,11 @@ let pontosAtual = 0;
 
 let checaMoveNaveInimigas;
 let checaNaveInimigas;
-let checaMoveNave;
 let checaMoveTiros;
-let checaTiros;
+let checaMoveNave;
 let checaColisao;
+let checaTiros;
+
 
 let posicaoHorizontal = larguraCenario / 2 - 50;
 let posicaoVertical = alturaCenario - alturaNave;
@@ -146,7 +147,7 @@ const naveInimigas = () => {   /* adicionando nave inimiga */
     inimigo.style.backgroundRepeat = "no-repeat";
     inimigo.style.backgroundSize = "contain";
     inimigo.style.left = Math.floor(Math.random() * (larguraCenario - larguraNave)) + "px";
-    inimigo.style.top = "100px";   /* é p/ quando a nave inimiga apareça de fora entrando p/ dentro do cenario */
+    inimigo.style.top = "-100px";   /* é p/ quando a nave inimiga apareça de fora entrando p/ dentro do cenario */
     cenario.appendChild(inimigo);  /* p/ adicionar  nave inimiga no cenário */
 } 
 
@@ -161,7 +162,7 @@ const moveNaveInimigas = () => {
         if (posicaoTopNaveInimiga > alturaCenario) {
             vidaAtual -= 5;  /* a nave inimiga chegou até a base (limite do cenario) sem destruir ela, então desconta 5 de suas vidas */
             vida.textContent = `Vida: ${vidaAtual}`;   /* p/ contar no mostrador do cenario quantas vidas está perdendo */
-            explosaoNaveInimigaDestruida(posicaoLeftNaveInimiga, posicaoTopNaveInimiga);
+            explosaoNaveInimigaDestruida(posicaoLeftNaveInimiga);
             if (vidaAtual <= 0) {
                 gameOver();
             }
@@ -188,7 +189,7 @@ const colisao = () => {
                 colisaoNaveInimiga.top < colisaoTiro.bottom &&
                 colisaoNaveInimiga.bottom > colisaoTiro.top 
                 ) {
-                    vidaAtualNaveInimiga --;
+                    vidaAtualNaveInimiga--;
                     tiro.remove();
                     if (vidaAtualNaveInimiga === 0) {
                         pontosAtual += 10;
@@ -253,10 +254,10 @@ const audioExplosoes = () => {
 const gameOver = () => {   /* é p/ limpar (remover)tudo */
     document.removeEventListener("keydown", teclaPressionada);
     document.removeEventListener("keyup", teclaSolta);
-    clearInterval(checaMoveNave);  
-    clearInterval(checaMoveNaveInimigas);
-    clearInterval(checaMoveTiros);
+    clearInterval(checaMoveNaveInimigas);  
     clearInterval(checaNaveInimigas);
+    clearInterval(checaMoveTiros);
+    clearInterval(checaMoveNave);
     clearInterval(checaColisao);
     const perdeu = document.createElement('div');   
     perdeu.style.position = "absolute";
