@@ -3,7 +3,7 @@ const cenario = document.getElementById("cenario");
 const nave = document.getElementById("nave");
 const vida = document.getElementById("vida");
 const pontos = document.getElementById("pontos");
-const audioJogo = new Audio("/audios/missaoespaco.mp3");
+const audioJogo = new Audio("/audios/Arise.mp3");
 
 const larguraCenario = cenario.offsetWidth;
 const alturaCenario = cenario.offsetHeight;
